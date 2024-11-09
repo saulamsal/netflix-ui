@@ -8,6 +8,9 @@ const reactNativeExpoBestPractices = [
   "Use Expo's asset system for images and fonts",
   "Implement proper error handling and crash reporting",
   "Utilize Expo's push notification system",
+  "Follow atomic design principles for components",
+  "Implement proper authentication flows",
+  "Use proper TypeScript patterns and types",
 ];
 
 // Folder structure
@@ -16,39 +19,86 @@ project-root/
 app/
   (tabs)/
     (profile)/       # Profile section
-    index.tsx        # Home screen
-    new.tsx         # New & Hot screen
+    settings/       # Settings screen
+    index.tsx       # Home screen
+    new.tsx        # New & Hot screen
+  auth/
+    sign-in.tsx    # Authentication screens
+    sign-up.tsx
   movie/
-  _layout.tsx       # Root layout
-  search.tsx        # Search functionality
+  _layout.tsx      # Root layout
+  search.tsx       # Search functionality
+assets/
+  images/         # Static images
+  fonts/          # Custom fonts
 components/
-  MovieList/        # Movie listings
-  GameList/         # Games section
-  FeaturedContent/  # Featured content
-  BottomSheet/      # Bottom sheets
-  navigation/       # Navigation components
-  WhoIsWatching/    # Profile selection
+  MovieList/      # Movie listings
+  GameList/       # Games section
+  FeaturedContent/# Featured content
+  BottomSheet/    # Bottom sheets
+  navigation/     # Navigation components
+  WhoIsWatching/ # Profile selection
+  ui/            # Reusable UI components
 hooks/
   useCachedResources.ts
   useColorScheme.ts
   useDeviceMotion.ts
   useOverlayView.ts
+  useAuth.ts     # Authentication hooks
+services/
+  api/           # API integration
+  storage/       # Local storage services
+utils/
+  constants.ts   # App constants
+  helpers.ts     # Helper functions
+  validation.ts  # Form validation
+types/
+  index.d.ts     # Global type definitions
+  api.types.ts   # API types
+config/
+  env.ts         # Environment configuration
 data/
-  movies.json       # Movie data
-  new.json         # New content data
-  users.json       # User profiles
-contexts/          # App-wide state management
-App.js
-app.json
+  movies.json    # Movie data
+  new.json      # New content data
+  users.json    # User profiles
+contexts/       # App-wide state management
+app.json        # Expo configuration
 `;
 
 // Additional instructions
 const additionalInstructions = `
-1. Use TypeScript for type safety
-2. Implement proper styling using StyleSheet
-3. Utilize Expo's vector icons
+1. Use TypeScript for type safety and proper type definitions
+2. Implement proper styling using StyleSheet or styled-components
+3. Utilize Expo's vector icons and asset management
 4. Use Expo's secure store for sensitive data
-5. Implement proper offline support
-6. Follow React Native best practices for performance
+5. Implement proper offline support with local storage
+6. Follow React Native best practices for performance optimization
 7. Use Expo's OTA updates for quick deployments
+8. Implement proper error boundaries and error handling
+9. Use proper form validation and user input handling
+10. Follow accessibility guidelines
+11. Implement proper testing structure with Jest and Testing Library
+12. Use proper Git workflow and branching strategy
+13. Follow proper code documentation standards
+14. Implement proper API error handling and retry logic
+15. Use proper state management patterns
+`;
+
+// Component naming conventions
+const namingConventions = `
+1. Components: PascalCase (MovieCard.tsx)
+2. Hooks: camelCase starting with 'use' (useAuth.ts)
+3. Utils: camelCase (formatDate.ts)
+4. Types: PascalCase with Type/Interface suffix (MovieType.ts)
+5. Constants: UPPER_SNAKE_CASE
+`;
+
+// File organization rules
+const fileOrganizationRules = `
+1. Group related components in feature folders
+2. Keep components small and focused
+3. Separate business logic from UI components
+4. Use index.ts files for clean exports
+5. Keep styles close to components
+6. Organize imports consistently
 `;
