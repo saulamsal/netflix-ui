@@ -23,6 +23,8 @@ import { usePathname } from 'expo-router';
 import { TAB_SCREENS } from '@/app/(tabs)/_layout';
 import { GameList } from '@/components/GameList/GameList';
 import { useScrollToTop } from '@react-navigation/native';
+import { useVisionOS } from '@/hooks/useVisionOS';
+import { VisionContainer, HoverableView } from '@/components/ui/VisionContainer';
 
 // const FEATURED_MOVIE = {
 //   id: 'dont-move',
@@ -44,6 +46,7 @@ export default function HomeScreen() {
   const { movies } = movieData as MoviesData;
   const insets = useSafeAreaInsets();
   const { tiltX, tiltY } = useDeviceMotion();
+  const { isVisionOS } = useVisionOS();
 
   const SCROLL_THRESHOLD = 4;
   const SLIDE_ACTIVATION_POINT = 90; // Point at which sliding can start
@@ -126,7 +129,7 @@ export default function HomeScreen() {
 
   return (
     <TabScreenWrapper isActive={isActive} slideDirection={slideDirection}>
-      <View style={styles.container}>
+      <VisionContainer style={styles.container}>
         <StatusBar style="light" />
         <AnimatedHeader
           headerAnimatedProps={headerAnimatedProps}
@@ -136,7 +139,10 @@ export default function HomeScreen() {
 
         <Animated.ScrollView
           ref={scrollViewRef}
-          style={styles.scrollView}
+          style={[
+            styles.scrollView,
+            isVisionOS && { paddingHorizontal: 20 }
+          ]}
           onScroll={scrollHandler}
           scrollEventThrottle={16}
           contentContainerStyle={styles.scrollViewContent}
@@ -161,7 +167,7 @@ export default function HomeScreen() {
             row.rowTitle === 'Mobile Games' ? <GameList key={row.rowTitle} {...row} /> : <MovieList key={row.rowTitle} {...row} />
           ))}
         </Animated.ScrollView>
-      </View>
+      </VisionContainer>
     </TabScreenWrapper>
   );
 }

@@ -4,6 +4,8 @@ import { useRouter } from 'expo-router';
 import { styles } from '@/styles';
 import { Movie, MovieRow } from '@/types/movie';
 import Svg, { Path } from 'react-native-svg';
+import { useVisionOS } from '@/hooks/useVisionOS';
+import { HoverableView } from '@/components/ui/VisionContainer';
 
 const NumberBackground = ({ number }: { number: number }) => {
     const num = (number).toString().padStart(2, '0');
@@ -50,22 +52,27 @@ const MovieItem = ({ item, router, index, isTop10 }: {
 export function MovieList({ rowTitle, movies, type }: MovieRow) {
     const router = useRouter();
     const isTop10 = type === 'top_10';
+    const { isVisionOS } = useVisionOS();
+
+    const renderItem = ({ item, index }) => (
+        <HoverableView key={`${item.id}-${index}`}>
+            <MovieItem
+                item={item}
+                router={router}
+                index={index}
+                isTop10={isTop10}
+            />
+        </HoverableView>
+    );
 
     return (
-        <View style={styles.movieRow}>
+        <View style={isVisionOS ? styles.visionContainer : styles.container}>
             <Text style={styles.sectionTitle}>{rowTitle}</Text>
             <FlatList
                 horizontal
                 data={movies}
-                renderItem={({ item, index }) => (
-                    <MovieItem
-                        item={item}
-                        router={router}
-                        index={index}
-                        isTop10={isTop10}
-                    />
-                )}
-                keyExtractor={item => item.id}
+                renderItem={renderItem}
+                keyExtractor={(item, index) => `${item.id}-${index}`}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={[
                     styles.contentList,
